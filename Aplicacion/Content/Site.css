@@ -1,0 +1,87 @@
+﻿﻿@font-face {
+    font-family: FAwesome;
+    src: url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+}
+
+* {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+html, body {
+    background-color: white;
+    flex-direction: column;
+    height: 100%;
+}
+
+html {
+    font-size: 100%;
+}
+
+@media (max-width: 991px) {
+    a.nav-link {
+        font-size: 1.1rem;
+    }
+}
+
+.navbar {
+    background-color: rgb(7, 74, 162) !important;
+}
+
+.background-app {
+    background-image: url("../Imagenes/ItdDeliciasLogo.png");
+    background-repeat: no-repeat, repeat;
+    height: 300px;
+    width: 100%;
+    background-position: center;
+    background-size: contain;
+}
+
+@media (max-width: 575.98px) {
+    .background-app {
+        background-image: none;
+        display: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .background-app {
+        background-image: none;
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .background-app {
+        background-image: url("../Imagenes/ItdDeliciasLogo.png");
+        display: block;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .background-app {
+        background-image: url("../Imagenes/ItdDeliciasLogo.png");
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .background-app {
+        background-image: url("../Imagenes/ItdDeliciasLogo.png");
+        display: block;
+    }
+}
