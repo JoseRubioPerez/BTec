@@ -18,8 +18,6 @@
 x64/
 x86/
 bld/
-[Bb]in/
-[Oo]bj/
 [Ll]og/
 
 # Visual Studio 2015 cache/options directory
@@ -68,8 +66,6 @@ Temp/
 ###################
 *.com
 *.class
-*.dll
-*.exe
 *.o
 *.so
 *.htm
@@ -91,7 +87,6 @@ Temp/
 ######################
 *.log
 *.sqlite
-*.config
 *.dbmdl
 *.jfm
 
@@ -111,6 +106,4 @@ Thumbs.db
 *.suo
 *.user
 _ReSharper.*
-bin
-obj
 packages
