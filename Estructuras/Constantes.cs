@@ -17,13 +17,12 @@
             Actualizar = 2,
             Eliminar = 3
         }
-        public enum Consulta
+        public enum TipoConsulta
         {
             SinAsignar = 0,
             Masiva = 1,
             IndividualPorId = 2,
-            ParaCatalogo = 3,
-            PorParametro = 4
+            PorParametro = 3
         }
         public enum EstaActivo
         {
@@ -36,6 +35,12 @@
             Incorrecto = 2,
             Error = 3
         }
+        public enum AlertaBootstrap
+        {
+            Success,
+            Warning,
+            Danger
+        }
         #endregion
 
         #region ValorMaximo
@@ -46,9 +51,27 @@
         }
         #endregion
         #region Procedimientos Almacenados
-        public enum Procedimiento
+        public enum Consulta
         {
-
+            ActualizarAdministradores,
+            ActualizarAreas,
+            ActualizarContrasenia,
+            ActualizarMovimientos,
+            ActualizarServicios,
+            ActualizarUsuarios,
+            CrearAdministradores,
+            CrearAreas,
+            CrearMovimientos,
+            CrearServicios,
+            CrearUsuarios,
+            GraficaMovimientos,
+            IniciarSesion,
+            LeerAdministradores,
+            LeerAreas,
+            LeerMovimientos,
+            LeerServicios,
+            LeerUsuarios,
+            RestaurarContrasenia
         }
         #endregion
     }

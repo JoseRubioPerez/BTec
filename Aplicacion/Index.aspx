@@ -30,8 +30,12 @@
         }
     </style>
     <div class="container body-content">
-        <div class="row">
-            <div class="col-12" style="height:100px; background-color: red;"></div>
+        <div class="row mt-5 text-center">
+            <div class="col-12 py-4" style="background-color: slategray;">
+                <h2>Control de Usuarios del Centro de Informaci&oacute;n del Instituto Tecnol&oacute;gico de Delicias</h2>
+                <h4 class="text-light">Por favor, inicia sesi&oacute;n</h4>
+            </div>
         </div>
+        <div></div>
     </div>
 </asp:Content>

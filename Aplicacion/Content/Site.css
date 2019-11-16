@@ -1,4 +1,4 @@
-﻿﻿@font-face {
+﻿@font-face {
     font-family: FAwesome;
     src: url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 }
@@ -30,16 +30,13 @@ html, body {
 
 html {
     font-size: 100%;
+    height: 100vh;
 }
 
 @media (max-width: 991px) {
     a.nav-link {
         font-size: 1.1rem;
     }
-}
-
-.navbar {
-    background-color: rgb(7, 74, 162) !important;
 }
 
 .background-app {

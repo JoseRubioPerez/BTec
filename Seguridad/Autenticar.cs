@@ -5,6 +5,7 @@ using System.Collections;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Seguridad
 {
@@ -13,7 +14,7 @@ namespace Seguridad
         private readonly string TipoEncriptacion = string.Empty;
         public Autenticar()
         {
-            TipoEncriptacion = ConfigurationManager.AppSettings["encryption"].ToString();
+            TipoEncriptacion = ConfigurationManager.AppSettings["Encryption"].ToString();
         }
         ~Autenticar()
         {
@@ -51,35 +52,33 @@ namespace Seguridad
             }
             return ObjStream.ToString();
         }
-        public bool CambiarContrasenia(ref Estructuras.Tarjeta Tarjeta1)
+        public bool IniciarSesion(ref Estructuras.Tarjeta Tarjeta1)
         {
             Estructuras.Administradores Administrador1 = Tarjeta1.Administrador;
             try
             {
-                if (string.IsNullOrEmpty(Tarjeta1.Administrador.Contrasenia) || Administrador1.IdAdministrador <= 0) throw new Exception();
-                Administrador1.IdAdministrador = Tarjeta1.Administrador.IdAdministrador;
+                if (string.IsNullOrEmpty(Administrador1.Contrasenia) || string.IsNullOrEmpty(Administrador1.NumeroControl))
+                {
+                    throw new Exception();
+                }
                 Administrador1.Contrasenia = ObtenerHash(Administrador1.Contrasenia);
-                Tuple<object, string, bool>[]  TuplaLeer = Estructuras.GenerarTupla(Administrador1, nameof(Administrador1.IdAdministrador));
-                Hashtable Resultado = new Hashtable();
-                using (Consultar ObjConsultar = new Consultar()) Resultado = ObjConsultar.Consultas("dbo.Actualizar_Contrasenia_Usuario", TuplaLeer);
-                Tarjeta1.Administrador = Administrador1;
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        public bool RecuperarContrasenia(ref Estructuras.Tarjeta Tarjeta1)
-        {
-            Estructuras.Administradores Administrador1 = Tarjeta1.Administrador;
-            try
-            {
-                if (Administrador1.IdAdministrador <= 0) throw new Exception();
-                Tuple<object, string, bool>[] TuplaLeer = Estructuras.GenerarTupla(Administrador1, nameof(Administrador1.IdAdministrador));
-                Hashtable Resultado = new Hashtable();
-                using (Consultar ObjConsultar = new Consultar()) Resultado = ObjConsultar.Consultas("dbo.Recuperar_Contrasenia_Usuario", TuplaLeer);
-                return true;
+                Dictionary<string, object> DicResultado = new Dictionary<string, object>();
+                bool Resultado = false;
+                using (Consultar ObjConsultar = new Consultar()) DicResultado = ObjConsultar.Consultas(Constantes.Consulta.IniciarSesion, new Tuple<object, string, bool>[]
+                {
+                    new Tuple<object, string, bool>(Administrador1.Contrasenia, nameof(Administrador1.Contrasenia), false),
+                    new Tuple<object, string, bool>(Administrador1.NumeroControl, nameof(Administrador1.NumeroControl), false),
+                    new Tuple<object, string, bool>(Resultado, nameof(Resultado), true),
+                });
+
+                if (DicResultado.ContainsKey(nameof(Resultado)))
+                {
+                    return (bool)DicResultado[nameof(Resultado)];
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception)
             {

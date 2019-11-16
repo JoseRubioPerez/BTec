@@ -7,9 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Aplicacion.Administrador {
-    
-    
-    public partial class PanelGeneral {
+namespace Aplicacion.Administrador
+{
+
+
+    public partial class PanelGeneral1
+    {
     }
 }

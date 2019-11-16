@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Glossary.aspx.cs" Inherits="Aplicacion.Glossary" %>

@@ -54,7 +54,17 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <asp:Button runat="server" OnClick="BTIniciarSesion_Click" CssClass="btn btn-primary btn-block" ID="BTIniciarSesion" Font-Bold="true" Text="Iniciar Sesión" />
+                                <asp:Button runat="server" OnClick="BTIniciarSesion_Click" OnClientClick="javascript:;" CssClass="btn btn-primary btn-block" ID="BTIniciarSesion" Font-Bold="true" Text="Iniciar Sesión" />
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-12">
+                                <div id="AlertaIncorrecto" runat="server" visible="false" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Usuario y/o Contrase&ntilde;a Incorrecta</strong>. Intenta de nuevo.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -62,4 +72,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 5000);
+    </script>
 </asp:Content>

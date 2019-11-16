@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Aplicacion
@@ -12,20 +9,33 @@ namespace Aplicacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                Session["UserSession"] = null;
+            }
         }
         protected void BTIniciarSesion_Click(object sender, EventArgs e)
         {
-            FormsAuthentication.RedirectFromLoginPage(TBUsuario.Text, false);
+            Seguridad.Autenticar ObjAutenticar = new Seguridad.Autenticar();
+            TBUsuario.Text = TBUsuario.Text.Trim();
+            Entidades.Estructuras.Tarjeta Tarjeta1 = new Entidades.Estructuras.Tarjeta
+            {
+                Administrador = new Entidades.Estructuras.Administradores
+                {
+                    NumeroControl = TBUsuario.Text.Trim(),
+                    Contrasenia = TBContrasenia.Text.Trim()
+                }
+            };
 
-            FormsAuthenticationTicket TicketAutenticacion1 = new FormsAuthenticationTicket(TBUsuario.Text, false, 30);
-            string CadenaDeCookies1 = FormsAuthentication.Encrypt(TicketAutenticacion1);
-            HttpCookie Cookies1 = new HttpCookie(FormsAuthentication.FormsCookieName, CadenaDeCookies1) { Expires = TicketAutenticacion1.Expiration, Path = FormsAuthentication.FormsCookiePath };
-            Response.Cookies.Add(Cookies1);
-
-            string strRedirect = Request["ReturnUrl"];
-            if (strRedirect == null) strRedirect = "Index.aspx";
-            Response.Redirect(strRedirect, true);
+            if (ObjAutenticar.IniciarSesion(ref Tarjeta1))
+            {
+                HttpContext.Current.Session["Tarjeta"] = Tarjeta1;
+                Page.Response.Redirect("~/Administrador/PanelGeneral.aspx", false);
+            }
+            else
+            {
+                AlertaIncorrecto.Visible = true;
+            }
         }
     }
 }
