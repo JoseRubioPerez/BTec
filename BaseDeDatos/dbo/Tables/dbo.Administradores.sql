@@ -1,20 +1,19 @@
-CREATE TABLE [dbo].[Administradores]
+CREATE TABLE [dbo].[ADMINISTRADORES]
 (
 [IdAdministrador] [tinyint] NOT NULL IDENTITY(1, 1),
-[IdGuid] [uniqueidentifier] NOT NULL CONSTRAINT [DF__Administr__IdGui__46E78A0C] DEFAULT (newid()),
-[NumeroControl] [varchar] (9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[PrimerNombre] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[SegundoNombre] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__Administr__Segun__47DBAE45] DEFAULT (''),
-[Paterno] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[Materno] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__Administr__Mater__48CFD27E] DEFAULT (''),
+[IdGuid] [uniqueidentifier] NOT NULL CONSTRAINT [DF__ADMINISTR__IdGui__160F4887] DEFAULT (newid()),
+[NumeroControl] [varchar] (9) NOT NULL,
 [Contrasenia] [varbinary] (8000) NOT NULL,
-[UrlFoto] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__Administr__UrlFo__49C3F6B7] DEFAULT (''),
-[IdGenero] [tinyint] NOT NULL CONSTRAINT [DF__Administr__IdGen__4AB81AF0] DEFAULT ((1)),
-[IdEditable] [bit] NOT NULL CONSTRAINT [DF__Administr__IdEdi__4BAC3F29] DEFAULT ((1)),
-[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__Administr__IdEst__4CA06362] DEFAULT ((1)),
-[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__Administr__Fecha__4D94879B] DEFAULT (getdate()),
-[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__Administr__Fecha__4E88ABD4] DEFAULT (getdate())
+[Nombres] [varchar] (100) NOT NULL,
+[Paterno] [varchar] (50) NOT NULL,
+[Materno] [varchar] (50) NOT NULL CONSTRAINT [DF__ADMINISTR__Mater__17036CC0] DEFAULT (''),
+[UrlFoto] [varchar] (200) NOT NULL CONSTRAINT [DF__ADMINISTR__UrlFo__17F790F9] DEFAULT (''),
+[IdGenero] [tinyint] NOT NULL CONSTRAINT [DF__ADMINISTR__IdGen__18EBB532] DEFAULT ((1)),
+[IdEditable] [bit] NOT NULL CONSTRAINT [DF__ADMINISTR__IdEdi__19DFD96B] DEFAULT ((1)),
+[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__ADMINISTR__IdEst__1AD3FDA4] DEFAULT ((1)),
+[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__ADMINISTR__Fecha__1BC821DD] DEFAULT (getdate()),
+[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__ADMINISTR__Fecha__1CBC4616] DEFAULT (getdate())
 )
 GO
-ALTER TABLE [dbo].[Administradores] ADD CONSTRAINT [PK__Administ__2B3E34A821464237] PRIMARY KEY CLUSTERED  ([IdAdministrador])
+ALTER TABLE [dbo].[ADMINISTRADORES] ADD CONSTRAINT [PK__ADMINIST__2B3E34A82D8170AC] PRIMARY KEY CLUSTERED  ([IdAdministrador])
 GO

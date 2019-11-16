@@ -1,23 +1,20 @@
-CREATE TABLE [dbo].[Usuarios]
+CREATE TABLE [dbo].[USUARIOS]
 (
 [IdUsuario] [int] NOT NULL IDENTITY(1, 1),
-[IdGuid] [uniqueidentifier] NOT NULL CONSTRAINT [DF__Usuarios__IdGuid__619B8048] DEFAULT (newid()),
-[NumeroControl] [varchar] (9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[PrimerNombre] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[SegundoNombre] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__Usuarios__Segund__628FA481] DEFAULT (''),
-[Paterno] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-[Materno] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__Usuarios__Matern__6383C8BA] DEFAULT (''),
-[IdArea] [tinyint] NOT NULL CONSTRAINT [DF__Usuarios__IdArea__656C112C] DEFAULT ((1)),
-[UrlFoto] [varchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__Usuarios__UrlFot__66603565] DEFAULT (''),
-[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__Usuarios__IdEsta__6754599E] DEFAULT ((1)),
-[IdGenero] [tinyint] NOT NULL CONSTRAINT [DF__Usuarios__IdGene__68487DD7] DEFAULT ((1)),
-[IdAdminCreacion] [tinyint] NOT NULL CONSTRAINT [DF__Usuarios__IdAdmi__693CA210] DEFAULT ((1)),
-[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__Usuarios__FechaC__6A30C649] DEFAULT (getdate()),
-[IdAdminActualizacion] [tinyint] NOT NULL CONSTRAINT [DF__Usuarios__IdAdmi__6B24EA82] DEFAULT ((1)),
-[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__Usuarios__FechaA__6C190EBB] DEFAULT (getdate())
+[IdGuid] [uniqueidentifier] NOT NULL CONSTRAINT [DF__USUARIOS__IdGuid__0A9D95DB] DEFAULT (newid()),
+[NumeroControl] [varchar] (9) NOT NULL,
+[Nombres] [varchar] (100) NOT NULL,
+[Paterno] [varchar] (50) NOT NULL,
+[Materno] [varchar] (50) NOT NULL CONSTRAINT [DF__USUARIOS__Matern__0B91BA14] DEFAULT (''),
+[IdArea] [tinyint] NOT NULL CONSTRAINT [DF__USUARIOS__IdArea__0C85DE4D] DEFAULT ((1)),
+[UrlFoto] [varchar] (200) NOT NULL CONSTRAINT [DF__USUARIOS__UrlFot__0D7A0286] DEFAULT (''),
+[IdGenero] [tinyint] NOT NULL CONSTRAINT [DF__USUARIOS__IdGene__0E6E26BF] DEFAULT ((1)),
+[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__USUARIOS__IdEsta__0F624AF8] DEFAULT ((1)),
+[IdAdminCreacion] [tinyint] NOT NULL CONSTRAINT [DF__USUARIOS__IdAdmi__10566F31] DEFAULT ((1)),
+[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__USUARIOS__FechaC__114A936A] DEFAULT (getdate()),
+[IdAdminActualizacion] [tinyint] NOT NULL CONSTRAINT [DF__USUARIOS__IdAdmi__123EB7A3] DEFAULT ((1)),
+[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__USUARIOS__FechaA__1332DBDC] DEFAULT (getdate())
 )
 GO
-ALTER TABLE [dbo].[Usuarios] ADD CONSTRAINT [PK__Usuarios__5B65BF97EE251F61] PRIMARY KEY CLUSTERED  ([IdUsuario])
-GO
-ALTER TABLE [dbo].[Usuarios] ADD CONSTRAINT [FK__Usuarios__IdArea__6477ECF3] FOREIGN KEY ([IdArea]) REFERENCES [dbo].[Areas] ([IdArea])
+ALTER TABLE [dbo].[USUARIOS] ADD CONSTRAINT [PK__USUARIOS__5B65BF97DB20A131] PRIMARY KEY CLUSTERED  ([IdUsuario])
 GO

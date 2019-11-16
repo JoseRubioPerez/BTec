@@ -69,6 +69,7 @@ Temp/
 *.o
 *.so
 *.htm
+*.pubxml
 
 # Packages #
 ############

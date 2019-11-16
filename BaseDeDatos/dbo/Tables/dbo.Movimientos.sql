@@ -1,14 +1,15 @@
-CREATE TABLE [dbo].[Movimientos]
+CREATE TABLE [dbo].[MOVIMIENTOS]
 (
 [IdMovimiento] [int] NOT NULL IDENTITY(1, 1),
-[IdUsuario] [int] NOT NULL CONSTRAINT [DF__Movimient__IdUsu__6EF57B66] DEFAULT ((1)),
-[IdServicio] [tinyint] NOT NULL CONSTRAINT [DF__Movimient__IdSer__6FE99F9F] DEFAULT ((1)),
-[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__Movimient__IdEst__70DDC3D8] DEFAULT ((1)),
-[IdAdminCreacion] [tinyint] NOT NULL CONSTRAINT [DF__Movimient__IdAdm__71D1E811] DEFAULT ((1)),
-[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__Movimient__Fecha__72C60C4A] DEFAULT (getdate()),
-[IdAdminActualizacion] [tinyint] NOT NULL CONSTRAINT [DF__Movimient__IdAdm__73BA3083] DEFAULT ((1)),
-[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__Movimient__Fecha__74AE54BC] DEFAULT (getdate())
+[IdGuid] [uniqueidentifier] NOT NULL CONSTRAINT [DF__MOVIMIENT__IdGui__60A75C0F] DEFAULT (newid()),
+[IdUsuario] [int] NOT NULL CONSTRAINT [DF__MOVIMIENT__IdUsu__619B8048] DEFAULT ((1)),
+[IdServicio] [tinyint] NOT NULL CONSTRAINT [DF__MOVIMIENT__IdSer__628FA481] DEFAULT ((1)),
+[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__MOVIMIENT__IdEst__6383C8BA] DEFAULT ((1)),
+[IdAdminCreacion] [tinyint] NOT NULL CONSTRAINT [DF__MOVIMIENT__IdAdm__6477ECF3] DEFAULT ((1)),
+[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__MOVIMIENT__Fecha__656C112C] DEFAULT (getdate()),
+[IdAdminActualizacion] [tinyint] NOT NULL CONSTRAINT [DF__MOVIMIENT__IdAdm__66603565] DEFAULT ((1)),
+[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__MOVIMIENT__Fecha__6754599E] DEFAULT (getdate())
 )
 GO
-ALTER TABLE [dbo].[Movimientos] ADD CONSTRAINT [PK__Movimien__881A6AE0E1BC6974] PRIMARY KEY CLUSTERED  ([IdMovimiento])
+ALTER TABLE [dbo].[MOVIMIENTOS] ADD CONSTRAINT [PK__MOVIMIEN__881A6AE0D17DC4DE] PRIMARY KEY CLUSTERED  ([IdMovimiento])
 GO

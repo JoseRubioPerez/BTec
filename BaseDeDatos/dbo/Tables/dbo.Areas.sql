@@ -1,13 +1,14 @@
-CREATE TABLE [dbo].[Areas]
+CREATE TABLE [dbo].[AREAS]
 (
 [IdArea] [tinyint] NOT NULL IDENTITY(1, 1),
-[Area] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL CONSTRAINT [DF__Areas__Area__59FA5E80] DEFAULT (''),
-[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__Areas__IdEstaAct__5AEE82B9] DEFAULT ((1)),
-[IdAdminCreacion] [tinyint] NOT NULL CONSTRAINT [DF__Areas__IdAdminCr__5BE2A6F2] DEFAULT ((1)),
-[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__Areas__FechaCrea__5CD6CB2B] DEFAULT (getdate()),
-[IdAdminActualizacion] [tinyint] NOT NULL CONSTRAINT [DF__Areas__IdAdminAc__5DCAEF64] DEFAULT ((1)),
-[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__Areas__FechaActu__5EBF139D] DEFAULT (getdate())
+[IdGuid] [uniqueidentifier] NOT NULL CONSTRAINT [DF__AREAS__IdGuid__6A30C649] DEFAULT (newid()),
+[Area] [varchar] (100) NOT NULL CONSTRAINT [DF__AREAS__Area__6B24EA82] DEFAULT (''),
+[IdEstaActivo] [bit] NOT NULL CONSTRAINT [DF__AREAS__IdEstaAct__6C190EBB] DEFAULT ((1)),
+[IdAdminCreacion] [tinyint] NOT NULL CONSTRAINT [DF__AREAS__IdAdminCr__6D0D32F4] DEFAULT ((1)),
+[FechaCreacion] [datetime] NOT NULL CONSTRAINT [DF__AREAS__FechaCrea__6E01572D] DEFAULT (getdate()),
+[IdAdminActualizacion] [tinyint] NOT NULL CONSTRAINT [DF__AREAS__IdAdminAc__6EF57B66] DEFAULT ((1)),
+[FechaActualizacion] [datetime] NOT NULL CONSTRAINT [DF__AREAS__FechaActu__6FE99F9F] DEFAULT (getdate())
 )
 GO
-ALTER TABLE [dbo].[Areas] ADD CONSTRAINT [PK__Areas__2FC141AA5EE1FFA5] PRIMARY KEY CLUSTERED  ([IdArea])
+ALTER TABLE [dbo].[AREAS] ADD CONSTRAINT [PK__AREAS__2FC141AA602B2BF3] PRIMARY KEY CLUSTERED  ([IdArea])
 GO
