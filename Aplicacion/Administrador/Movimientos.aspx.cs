@@ -67,7 +67,11 @@ namespace Aplicacion.Administrador
         }
         protected void LBGuardar_Click(object sender, EventArgs e)
         {
+            TBNumeroControl.Text = TBNumeroControl.Text.Trim();
+            if (int.Parse(DDLServicio.SelectedValue) > 0 && int.Parse(DDLEstaActivo.SelectedValue) > 0 && !string.IsNullOrEmpty(TBNumeroControl.Text))
+            {
 
+            }
         }
         protected void LBConsultar_Click(object sender, EventArgs e)
         {

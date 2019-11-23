@@ -57,16 +57,7 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
-    <Folder Include="BaseDeDatos\" />
     <Folder Include="dbo" />
-    <Folder Include="dbo\Stored Procedures\" />
-    <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Tables" />
     <Folder Include="Properties" />
@@ -74,7 +65,10 @@
   <ItemGroup>
     <Build Include="dbo\Stored Procedures\dbo.GraficaMovimientos.sql" />
     <Build Include="dbo\Stored Procedures\dbo.IniciarSesion.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.LeerAreas.sql" />
     <Build Include="dbo\Stored Procedures\dbo.LeerMovimientos.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.LeerServicios.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.LeerUsuarios.sql" />
     <Build Include="dbo\Tables\dbo.ADMINISTRADORES.sql" />
     <Build Include="dbo\Tables\dbo.AREAS.sql" />
     <Build Include="dbo\Tables\dbo.MOVIMIENTOS.sql" />

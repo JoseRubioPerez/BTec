@@ -16,7 +16,7 @@
         </div>
     </nav>
     <div class="container-fluid py-5 px-5">
-        <div class="row pl-5">
+        <div class="row">
             <div class="col-5">
                 <h2>Movimientos</h2>
                 <small class="form-text text-muted">Los campos con asteriscos (<span style="color: red;">*</span>), son campos obligatorios.</small>
@@ -25,43 +25,50 @@
         </div>
         <asp:MultiView runat="server" ID="MultiView1">
             <asp:View runat="server" ID="ViewNuevo">
-                <div class="row pl-5">
-                    <div class="col-5">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend"><span class="input-group-text">C&oacute;digo</span></div>
-                            <asp:TextBox runat="server" ID="TBcodigo" Enabled="false" CssClass="form-control"></asp:TextBox>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group my-3">
+                            <label for="username">C&oacute;digo</label>
+                            <asp:TextBox runat="server" ID="TBcodigo" Enabled="false" for="username"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <div class="row pl-5">
-                    <div class="col-5">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend"><span class="input-group-text">N&uacute;mero de Control</span></div>
-                            <asp:TextBox runat="server" ID="TBNumeroControl" MaxLength="9" CssClass="form-control"></asp:TextBox>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group my-3">
+                            <label for="numerocontrol">N&uacute;mero de Control</label>
+                            <asp:TextBox runat="server" ID="TBNumeroControl" MaxLength="9" for="numerocontrol"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <div class="row pl-5">
-                    <div class="col-5">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend"><span class="input-group-text">Servicio<span style="color: red;">*</span></span></div>
-                            <asp:DropDownList runat="server" ID="DDLServicio" CssClass="form-control"></asp:DropDownList>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group-prepend">
+                            <span class="font-weight-bold mb-2">Servicios <span class="text-danger">*</span></span>
                         </div>
-                    </div>
-                </div>
-                <div class="row pl-5">
-                    <div class="col-5">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend"><span class="input-group-text">Estado del Registro&emsp;<span style="color: red;">*</span></span></div>
-                            <asp:DropDownList runat="server" ID="DDLEstaActivo" CssClass="form-control">
+                        <span class="custom-dropdown">
+                            <asp:DropDownList runat="server" ID="DDLServicio">
                                 <asp:ListItem Selected="True" Text="ACTIVO" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="INACTIVO" Value="0"></asp:ListItem>
                             </asp:DropDownList>
-                        </div>
+                        </span>
                     </div>
                 </div>
-                <div class="row pl-5">
-                    <div class="col-5">
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group-prepend">
+                            <span class="font-weight-bold mb-2">Estado del Registro <span class="text-danger">*</span></span>
+                        </div>
+                        <span class="custom-dropdown">
+                            <asp:DropDownList runat="server" ID="DDLEstaActivo">
+                                <asp:ListItem Selected="True" Text="ACTIVO" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="INACTIVO" Value="0"></asp:ListItem>
+                            </asp:DropDownList>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
                         <div id="Alerta1" runat="server" visible="false" class="alert alert-danger alert-dismissible fade show" role="alert">
                             <span class="font-weight-bold" runat="server" id="AlertaTextoNegritas1"></span>&nbsp;<span runat="server" id="AlertaTexto1"></span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -108,6 +115,39 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/rg-1.1.1/rr-1.2.6/datatables.min.js"></script>
     <script type="text/javascript">
+        var group = document.getElementsByClassName('input-group');
+        for (var i = 0; i < group.length; i++) {
+            group[i].onclick = addLabelActiveClass;// group listenere ends
+            var input = group[i].getElementsByTagName('input')[0];
+            input.onblur = removeLabelActiveClass;
+
+            input.onfocus = callLabelActiveClass;
+
+
+        }//end for loop
+        function callLabelActiveClass() {
+            addLabelActiveClass.call(this.parentNode);
+        }
+        function addLabelActiveClass() {
+            var label = this.getElementsByTagName('label')[0];
+            var input = this.getElementsByTagName('input')[0];
+            if (!label.classList.contains('active') && !input.disabled) {
+                label.classList.add('active');
+                input.focus();
+            }
+        }
+
+        function removeLabelActiveClass() {
+            //only move label back if input is empty
+
+            if (this.value === "") {
+                var label = this.parentNode.children[0];
+                if (label.classList.contains('active')) {
+                    label.classList.remove('active');
+                }
+            }
+        }
+
         window.setTimeout(function () {
             $("#<%=Alerta1.ClientID%>").fadeTo(500, 0).slideUp(500, function () {
                 $(this).remove();
