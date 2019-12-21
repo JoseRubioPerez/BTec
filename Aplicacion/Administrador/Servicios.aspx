@@ -1,4 +1,4 @@
-﻿<%@ Page Title="BTec - Movimientos" Language="C#" MasterPageFile="~/Administrador/Second.Master" AutoEventWireup="true" CodeBehind="Movimientos.aspx.cs" Inherits="Aplicacion.Administrador.PanelGeneral" Culture="es-MX" UICulture="es-MX" %>
+﻿<%@ Page Title="BTec - Servicios" Language="C#" MasterPageFile="~/Administrador/Second.Master" AutoEventWireup="true" CodeBehind="Servicios.aspx.cs" Inherits="Aplicacion.Administrador.Servicios" Culture="es-MX" UICulture="es-MX" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/af-2.3.4/b-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.css" />
@@ -18,7 +18,7 @@
     <div class="container-fluid py-5 px-5">
         <div class="row">
             <div class="col-5">
-                <h2>Movimientos</h2>
+                <h2>Usuarios</h2>
                 <small class="form-text text-muted">Los campos con asteriscos (<span style="color: red;">*</span>), son campos obligatorios.</small>
                 <br />
             </div>
@@ -28,30 +28,17 @@
                 <div class="row">
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
                         <div class="input-group my-3">
-                            <label for="username">C&oacute;digo</label>
-                            <asp:TextBox runat="server" ID="TBcodigo" Enabled="false" for="username"></asp:TextBox>
+                            <label for="code">C&oacute;digo</label>
+                            <asp:TextBox runat="server" ID="TBcodigo" Enabled="false" for="code"></asp:TextBox>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
                         <div class="input-group my-3">
-                            <label for="numerocontrol">N&uacute;mero de Control</label>
-                            <asp:TextBox runat="server" ID="TBNumeroControl" MaxLength="9" for="numerocontrol"></asp:TextBox>
+                            <label for="area">Servicio</label>
+                            <asp:TextBox runat="server" ID="TBServicio" MaxLength="9" for="area"></asp:TextBox>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                        <div class="input-group-prepend">
-                            <span class="font-weight-bold mb-2">Servicios <span class="text-danger">*</span></span>
-                        </div>
-                        <span class="custom-dropdown">
-                            <asp:DropDownList runat="server" ID="DDLServicio">
-                                <asp:ListItem Selected="True" Text="ACTIVO" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="INACTIVO" Value="0"></asp:ListItem>
-                            </asp:DropDownList>
-                        </span>
                     </div>
                 </div>
                 <div class="row">
@@ -93,16 +80,13 @@
                                     <RowStyle CssClass="table-light" />
                                     <Columns>
                                         <asp:CommandField ButtonType="Link" ShowSelectButton="true" HeaderText="Detalles" />
-                                        <asp:BoundField DataField="IdMovimiento" HeaderText="Movimiento" />
-                                        <asp:BoundField DataField="NumeroControl" HeaderText="Número de Control" />
-                                        <asp:BoundField DataField="Nombres" HeaderText="Nombres" />
-                                        <asp:BoundField DataField="Paterno" HeaderText="Paterno" />
-                                        <asp:BoundField DataField="Materno" HeaderText="Materno" />
-                                        <asp:BoundField DataField="Genero" HeaderText="Genero" />
-                                        <asp:BoundField DataField="Area" HeaderText="Area / Departamento" />
-                                        <asp:BoundField DataField="IdServicio" HeaderText="ID de Servicio" />
+                                        <asp:BoundField DataField="IdServicio" HeaderText="ID Servicio" />
                                         <asp:BoundField DataField="Servicio" HeaderText="Servicio" />
+                                        <asp:BoundField DataField="EstaActivo" HeaderText="Esta Activo" />
+                                        <asp:BoundField DataField="UsuarioCreacion" HeaderText="Usuario de Creación" />
                                         <asp:BoundField DataField="FechaCreacion" HeaderText="Fecha de Creación" />
+                                        <asp:BoundField DataField="UsuarioActualizacion" HeaderText="Usuario de Actualización" />
+                                        <asp:BoundField DataField="FechaActualizacion" HeaderText="Fecha de Actualización" />
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -175,7 +159,7 @@
                 select: true,
                 ajax: {
                     type: "POST",
-                    url: "../Glossary.aspx/LlenarTablaMovimientos",
+                    url: "../Glossary.aspx/LlenarTablaAreas",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     cache: true,
@@ -184,7 +168,7 @@
                     },
                     dataSrc: "d.data"
                 },
-                rowId: 'IdMovimiento',
+                rowId: 'IdArea',
                 select: "single",
                 columns: [
                     {
@@ -192,34 +176,6 @@
                         orderable: false,
                         data: null,
                         defaultContent: "<a href='#'><b>Seleccionar</b></a>"
-                    },
-                    {
-                        data: "IdMovimiento",
-                        class: "text-center"
-                    },
-                    {
-                        data: "NumeroControl",
-                        class: "text-center"
-                    },
-                    {
-                        data: "Nombres",
-                        class: "text-center"
-                    },
-                    {
-                        data: "Paterno",
-                        class: "text-center"
-                    },
-                    {
-                        data: "Materno",
-                        class: "text-center"
-                    },
-                    {
-                        data: "Genero",
-                        class: "text-center"
-                    },
-                    {
-                        data: "Area",
-                        class: "text-center"
                     },
                     {
                         data: "IdServicio",
@@ -230,9 +186,25 @@
                         class: "text-center"
                     },
                     {
+                        data: "EstaActivo",
+                        class: "text-center"
+                    },
+                    {
                         data: "FechaCreacion",
                         class: "text-center"
-                    }
+                    },
+                    {
+                        data: "UsuarioCreacion",
+                        class: "text-center"
+                    },
+                    {
+                        data: "FechaActualizacion",
+                        class: "text-center"
+                    },
+                    {
+                        data: "UsuarioActualizacion",
+                        class: "text-center"
+                    },
                 ]
             });
 

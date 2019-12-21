@@ -13,7 +13,7 @@ namespace Aplicacion
 
         }
         [WebMethod(EnableSession = true)]
-        public static object LlenarTabla()
+        public static object LlenarTablaMovimientos()
         {
             try
             {

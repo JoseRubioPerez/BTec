@@ -1,4 +1,4 @@
-﻿<%@ Page Title="BTec - Movimientos" Language="C#" MasterPageFile="~/Administrador/Second.Master" AutoEventWireup="true" CodeBehind="Movimientos.aspx.cs" Inherits="Aplicacion.Administrador.PanelGeneral" Culture="es-MX" UICulture="es-MX" %>
+﻿<%@ Page Title="BTec - Usuarios" Language="C#" MasterPageFile="~/Administrador/Second.Master" AutoEventWireup="true" CodeBehind="Usuarios.aspx.cs" Inherits="Aplicacion.Administrador.Usuarios" Culture="es-MX" UICulture="es-MX" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/af-2.3.4/b-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.css" />
@@ -18,7 +18,7 @@
     <div class="container-fluid py-5 px-5">
         <div class="row">
             <div class="col-5">
-                <h2>Movimientos</h2>
+                <h2>Usuarios</h2>
                 <small class="form-text text-muted">Los campos con asteriscos (<span style="color: red;">*</span>), son campos obligatorios.</small>
                 <br />
             </div>
@@ -28,8 +28,8 @@
                 <div class="row">
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
                         <div class="input-group my-3">
-                            <label for="username">C&oacute;digo</label>
-                            <asp:TextBox runat="server" ID="TBcodigo" Enabled="false" for="username"></asp:TextBox>
+                            <label for="code">C&oacute;digo</label>
+                            <asp:TextBox runat="server" ID="TBcodigo" Enabled="false" for="code"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -43,13 +43,58 @@
                 </div>
                 <div class="row">
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group my-3">
+                            <label for="nombres">Nombres</label>
+                            <asp:TextBox runat="server" ID="TBNombres" MaxLength="9" for="nombres"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group my-3">
+                            <label for="paterno">Apellido paterno</label>
+                            <asp:TextBox runat="server" ID="TBPaterno" MaxLength="9" for="paterno"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group my-3">
+                            <label for="materno">Apellido materno</label>
+                            <asp:TextBox runat="server" ID="TBMaterno" MaxLength="9" for="materno"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group my-3">
+                            <label for="foto">Url de Foto del usuario</label>
+                            <asp:TextBox runat="server" ID="TBUrl" MaxLength="9" for="foto"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
                         <div class="input-group-prepend">
-                            <span class="font-weight-bold mb-2">Servicios <span class="text-danger">*</span></span>
+                            <span class="font-weight-bold mb-2">&Aacute;rea o Departamento <span class="text-danger">*</span></span>
                         </div>
                         <span class="custom-dropdown">
-                            <asp:DropDownList runat="server" ID="DDLServicio">
+                            <asp:DropDownList runat="server" ID="DDLArea">
                                 <asp:ListItem Selected="True" Text="ACTIVO" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="INACTIVO" Value="0"></asp:ListItem>
+                            </asp:DropDownList>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="input-group-prepend">
+                            <span class="font-weight-bold mb-2">G&eacute;nero <span class="text-danger">*</span></span>
+                        </div>
+                        <span class="custom-dropdown">
+                            <asp:DropDownList runat="server" ID="DDLGenero">
+                                <asp:ListItem Selected="True" Text="Masculino" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Femenino" Value="2"></asp:ListItem>
                             </asp:DropDownList>
                         </span>
                     </div>
@@ -93,7 +138,7 @@
                                     <RowStyle CssClass="table-light" />
                                     <Columns>
                                         <asp:CommandField ButtonType="Link" ShowSelectButton="true" HeaderText="Detalles" />
-                                        <asp:BoundField DataField="IdMovimiento" HeaderText="Movimiento" />
+                                        <asp:BoundField DataField="IdUsuario" HeaderText="ID Usuario" />
                                         <asp:BoundField DataField="NumeroControl" HeaderText="Número de Control" />
                                         <asp:BoundField DataField="Nombres" HeaderText="Nombres" />
                                         <asp:BoundField DataField="Paterno" HeaderText="Paterno" />
@@ -175,7 +220,7 @@
                 select: true,
                 ajax: {
                     type: "POST",
-                    url: "../Glossary.aspx/LlenarTablaMovimientos",
+                    url: "../Glossary.aspx/LlenarTablaUsuarios",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     cache: true,
@@ -184,7 +229,7 @@
                     },
                     dataSrc: "d.data"
                 },
-                rowId: 'IdMovimiento',
+                rowId: 'IdUsuario',
                 select: "single",
                 columns: [
                     {
@@ -194,7 +239,7 @@
                         defaultContent: "<a href='#'><b>Seleccionar</b></a>"
                     },
                     {
-                        data: "IdMovimiento",
+                        data: "IdUsuario",
                         class: "text-center"
                     },
                     {

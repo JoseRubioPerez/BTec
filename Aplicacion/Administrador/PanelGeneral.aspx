@@ -5,8 +5,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header text-center"><h3>Movimientos del Centro de Informaci&oacute;n del ITD</h3></div>
                     <div class="card-body">
                         <canvas id="myChart" width="400" height="100"></canvas>
+                    </div>
+                    <div class="card-footer">
+                        <h5 id="TotalRegistros"></h5>
                     </div>
                 </div>
             </div>
@@ -76,6 +80,11 @@
                         }
                     };
                     respondCanvas();
+                    var sum = 0;
+                    result.d.data.Total.forEach((value, index) => {
+                        sum += value;
+                    });
+                    $('#TotalRegistros').html(`Total de Registros: ${sum}`);
                 }
             });
         };

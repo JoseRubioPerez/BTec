@@ -1,6 +1,7 @@
 ﻿using Datos;
 using Entidades;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -85,5 +86,60 @@ namespace Negocio
 
             }
         }
+        public void GuardarMovimiento(ref Estructuras.Tarjeta Tarjeta1, ref Estructuras.Movimientos Movimiento1)
+        {
+            Dictionary<string, object> Resultado = new Dictionary<string, object>();
+            Tarjeta1.Error = string.Empty;
+            try
+            {
+                switch (Tarjeta1.Accion)
+                {
+                    case Constantes.Accion.Insertar:
+                        {
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Movimiento1, nameof(Movimiento1.IdMovimiento), nameof(Movimiento1.IdGuid));
+                            using (Consultar ObjConsultas = new Consultar()) Resultado = ObjConsultas.Consultas(Constantes.Consulta.CrearMovimientos, T1);
+                            if (Resultado.Count > 0)
+                            {
+                                if ((byte)Resultado[nameof(Movimiento1.IdMovimiento)] > 0)
+                                {
+                                    Movimiento1.IdMovimiento = (byte)Resultado[nameof(Movimiento1.IdMovimiento)];
+                                    Movimiento1.IdGuid = (Guid)Resultado[nameof(Movimiento1.IdGuid)];
+                                    Tarjeta1.Resultado = Constantes.Resultado.Correcto;
+                                }
+                                else
+                                {
+                                    Tarjeta1.Resultado = Constantes.Resultado.Incorrecto;
+                                }
+                            }
+                            else
+                            {
+                                Tarjeta1.Resultado = Constantes.Resultado.Incorrecto;
+                            }
+                            break;
+                        }
+                    case Constantes.Accion.Actualizar:
+                        {
+                            if (Movimiento1.IdMovimiento <= 0) throw new FormatException();
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Movimiento1, nameof(Movimiento1.IdMovimiento), nameof(Movimiento1.IdGuid));
+                            using (Consultar ObjConsultas = new Consultar()) Resultado = ObjConsultas.Consultas(Constantes.Consulta.ActualizarMovimientos, T1);
+                            Tarjeta1.Resultado = Constantes.Resultado.Correcto;
+                            break;
+                        }
+                    case Constantes.Accion.Eliminar:
+                        {
+                            Movimiento1.IdMovimiento = 0;
+                            Tarjeta1.Resultado = Constantes.Resultado.Incorrecto;
+                            Tarjeta1.Error = "Favor de contactarse con el soporte de la página y reportar el siguiente error: CCP-N-03";
+                            break;
+                        }
+                }
+            }
+            catch (Exception)
+            {
+                Movimiento1.IdMovimiento = 0;
+                Tarjeta1.Resultado = Constantes.Resultado.Error;
+            }
+        }
+
     }
 }

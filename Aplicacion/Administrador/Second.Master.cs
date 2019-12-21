@@ -24,6 +24,7 @@ namespace Aplicacion.Administrador
                 Page.Response.Redirect("~/LogIn.aspx", false);
                 return;
             }
+            Page.Response.Redirect("~/Administrador/Usuarios.aspx", false);
         }
         protected void LBMovimientos_Click(object sender, EventArgs e)
         {

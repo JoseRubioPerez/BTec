@@ -1,3 +1,7 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
 CREATE PROCEDURE [dbo].[LeerUsuarios] @Consulta AS TINYINT = 1
 	,@IdUsuario AS INT OUTPUT
 	,@IdGuid AS UNIQUEIDENTIFIER OUTPUT
@@ -108,10 +112,14 @@ BEGIN
 			,@IdGenero = a.IdGenero
 			,@IdEstaActivo = a.IdEstaActivo
 			,@IdAdminCreacion = a.IdAdminCreacion
+			,@NumeroControlActualizacion = uc.NumeroControl
 			,@FechaCreacion = a.FechaCreacion
 			,@IdAdminActualizacion = a.IdAdminActualizacion
+			,@NumeroControlActualizacion = ua.NumeroControl
 			,@FechaActualizacion = a.FechaActualizacion
 		FROM dbo.USUARIOS AS a
+		INNER JOIN dbo.ADMINISTRADORES AS uc ON uc.IdAdministrador = a.IdAdminCreacion
+		INNER JOIN dbo.ADMINISTRADORES AS ua ON ua.IdAdministrador = a.IdAdminActualizacion
 		WHERE a.NumeroControl = @NumeroControl
 		ORDER BY a.IdUsuario;
 	END

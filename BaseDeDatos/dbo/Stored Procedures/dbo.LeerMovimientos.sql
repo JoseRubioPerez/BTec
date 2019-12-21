@@ -1,3 +1,7 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
 CREATE PROCEDURE [dbo].[LeerMovimientos] @Consulta AS TINYINT = 1
 	,@IdMovimiento AS INT OUTPUT
 	,@IdGuid AS UNIQUEIDENTIFIER OUTPUT
@@ -81,8 +85,10 @@ BEGIN
 			,@IdServicio = a.IdServicio
 			,@IdEstaActivo = a.IdEstaActivo
 			,@IdAdminCreacion = a.IdAdminCreacion
+			,@NumeroControlCreacion = uc.NumeroControl
 			,@FechaCreacion = a.FechaCreacion
 			,@IdAdminActualizacion = a.IdAdminActualizacion
+			,@NumeroControlActualizacion = ua.NumeroControl
 			,@FechaActualizacion = a.FechaActualizacion
 		FROM dbo.MOVIMIENTOS AS a
 		INNER JOIN dbo.ADMINISTRADORES AS uc ON uc.IdAdministrador = a.IdAdminCreacion
@@ -97,10 +103,14 @@ BEGIN
 			,@IdServicio = a.IdServicio
 			,@IdEstaActivo = a.IdEstaActivo
 			,@IdAdminCreacion = a.IdAdminCreacion
+			,@NumeroControlCreacion = uc.NumeroControl
 			,@FechaCreacion = a.FechaCreacion
 			,@IdAdminActualizacion = a.IdAdminActualizacion
+			,@NumeroControlActualizacion = ua.NumeroControl
 			,@FechaActualizacion = a.FechaActualizacion
 		FROM dbo.MOVIMIENTOS AS a
+		INNER JOIN dbo.ADMINISTRADORES AS uc ON uc.IdAdministrador = a.IdAdminCreacion
+		INNER JOIN dbo.ADMINISTRADORES AS ua ON ua.IdAdministrador = a.IdAdminActualizacion
 		WHERE a.IdUsuario = @IdUsuario
 		ORDER BY a.IdMovimiento;
 	END

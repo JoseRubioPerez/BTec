@@ -1,3 +1,7 @@
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
 CREATE PROCEDURE [dbo].[LeerServicios] @Consulta AS TINYINT = 1
 	,@IdServicio AS TINYINT OUTPUT
 	,@Servicio AS VARCHAR(50) OUTPUT
@@ -29,7 +33,7 @@ BEGIN
 	SET @IdEstaActivo = ISNULL(@IdEstaActivo, 1);
 
 	DECLARE @IdServicioInicio AS TINYINT = IIF(@IdServicio = @BuscarTodo, 0, @IdServicio)
-		,@IdServicioFin AS TINYINT = IIF(@IdServicio = @BuscarTodo, 1000000, @IdServicio);
+		,@IdServicioFin AS TINYINT = IIF(@IdServicio = @BuscarTodo, 255, @IdServicio);
 
 	SET @FechaInicio = ISNULL(@FechaInicio, CAST('1900-01-01' AS DATETIME));
 	SET @FechaFin = ISNULL(@FechaFin, CAST('2100-01-01' AS DATETIME));
@@ -65,8 +69,10 @@ BEGIN
 			,@Servicio = a.Servicio
 			,@IdEstaActivo = a.IdEstaActivo
 			,@IdAdminCreacion = a.IdAdminCreacion
+			,@NumeroControlActualizacion = uc.NumeroControl
 			,@FechaCreacion = a.FechaCreacion
 			,@IdAdminActualizacion = a.IdAdminActualizacion
+			,@NumeroControlActualizacion = ua.NumeroControl
 			,@FechaActualizacion = a.FechaActualizacion
 		FROM dbo.SERVICIOS AS a
 		INNER JOIN dbo.ADMINISTRADORES AS uc ON uc.IdAdministrador = a.IdAdminCreacion

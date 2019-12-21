@@ -34,8 +34,16 @@ namespace Entidades
             public bool IdEditable { get { return PBIdEditable; } set { PBIdEditable = value; } }
             private bool PBIdEstaActivo { get; set; }
             public bool IdEstaActivo { get { return PBIdEstaActivo; } set { PBIdEstaActivo = value; } }
+            private byte PBIdAdminCreacion { get; set; }
+            public byte IdAdminCreacion { get { return PBIdAdminCreacion; } set { PBIdAdminCreacion = value; } }
+            private string PSNumeroControlCreacion { get; set; }
+            public string NumeroControlCreacion { get { return PSNumeroControlCreacion; } set { PSNumeroControlCreacion = value ?? string.Empty; } }
             private DateTime PDFechaCreacion { get; set; }
             public DateTime FechaCreacion { get { return PDFechaCreacion; } set { PDFechaCreacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
+            private byte PBIdAdminActualizacion { get; set; }
+            public byte IdAdminActualizacion { get { return PBIdAdminActualizacion; } set { PBIdAdminActualizacion = value; } }
+            private string PSNumeroControlActualizacion { get; set; }
+            public string NumeroControlActualizacion { get { return PSNumeroControlActualizacion; } set { PSNumeroControlActualizacion = value ?? string.Empty; } }
             private DateTime PDFechaActualizacion { get; set; }
             public DateTime FechaActualizacion { get { return PDFechaActualizacion; } set { PDFechaActualizacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
         }
@@ -52,10 +60,14 @@ namespace Entidades
             public bool IdEstaActivo { get { return PBIdEstaActivo; } set { PBIdEstaActivo = value; } }
             private byte PBIdAdminCreacion { get; set; }
             public byte IdAdminCreacion { get { return PBIdAdminCreacion; } set { PBIdAdminCreacion = value; } }
+            private string PSNumeroControlCreacion { get; set; }
+            public string NumeroControlCreacion { get { return PSNumeroControlCreacion; } set { PSNumeroControlCreacion = value ?? string.Empty; } }
             private DateTime PDFechaCreacion { get; set; }
             public DateTime FechaCreacion { get { return PDFechaCreacion; } set { PDFechaCreacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
             private byte PBIdAdminActualizacion { get; set; }
             public byte IdAdminActualizacion { get { return PBIdAdminActualizacion; } set { PBIdAdminActualizacion = value; } }
+            private string PSNumeroControlActualizacion { get; set; }
+            public string NumeroControlActualizacion { get { return PSNumeroControlActualizacion; } set { PSNumeroControlActualizacion = value ?? string.Empty; } }
             private DateTime PDFechaActualizacion { get; set; }
             public DateTime FechaActualizacion { get { return PDFechaActualizacion; } set { PDFechaActualizacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
         }
@@ -98,10 +110,14 @@ namespace Entidades
             public bool IdEstaActivo { get { return PBIdEstaActivo; } set { PBIdEstaActivo = value; } }
             private byte PBIdAdminCreacion { get; set; }
             public byte IdAdminCreacion { get { return PBIdAdminCreacion; } set { PBIdAdminCreacion = value; } }
+            private string PSNumeroControlCreacion { get; set; }
+            public string NumeroControlCreacion { get { return PSNumeroControlCreacion; } set { PSNumeroControlCreacion = value ?? string.Empty; } }
             private DateTime PDFechaCreacion { get; set; }
             public DateTime FechaCreacion { get { return PDFechaCreacion; } set { PDFechaCreacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
             private byte PBIdAdminActualizacion { get; set; }
             public byte IdAdminActualizacion { get { return PBIdAdminActualizacion; } set { PBIdAdminActualizacion = value; } }
+            private string PSNumeroControlActualizacion { get; set; }
+            public string NumeroControlActualizacion { get { return PSNumeroControlActualizacion; } set { PSNumeroControlActualizacion = value ?? string.Empty; } }
             private DateTime PDFechaActualizacion { get; set; }
             public DateTime FechaActualizacion { get { return PDFechaActualizacion; } set { PDFechaActualizacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
         }
@@ -139,10 +155,14 @@ namespace Entidades
             public bool IdEstaActivo { get { return PBIdEstaActivo; } set { PBIdEstaActivo = value; } }
             private byte PBIdAdminCreacion { get; set; }
             public byte IdAdminCreacion { get { return PBIdAdminCreacion; } set { PBIdAdminCreacion = value; } }
+            private string PSNumeroControlCreacion { get; set; }
+            public string NumeroControlCreacion { get { return PSNumeroControlCreacion; } set { PSNumeroControlCreacion = value ?? string.Empty; } }
             private DateTime PDFechaCreacion { get; set; }
             public DateTime FechaCreacion { get { return PDFechaCreacion; } set { PDFechaCreacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
             private byte PBIdAdminActualizacion { get; set; }
             public byte IdAdminActualizacion { get { return PBIdAdminActualizacion; } set { PBIdAdminActualizacion = value; } }
+            private string PSNumeroControlActualizacion { get; set; }
+            public string NumeroControlActualizacion { get { return PSNumeroControlActualizacion; } set { PSNumeroControlActualizacion = value ?? string.Empty; } }
             private DateTime PDFechaActualizacion { get; set; }
             public DateTime FechaActualizacion { get { return PDFechaActualizacion; } set { PDFechaActualizacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
         }
