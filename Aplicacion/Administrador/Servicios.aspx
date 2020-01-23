@@ -18,7 +18,7 @@
     <div class="container-fluid py-5 px-5">
         <div class="row">
             <div class="col-5">
-                <h2>Usuarios</h2>
+                <h2>Servicios</h2>
                 <small class="form-text text-muted">Los campos con asteriscos (<span style="color: red;">*</span>), son campos obligatorios.</small>
                 <br />
             </div>
@@ -70,11 +70,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Tabla de Movimientos <span class="badge badge-secondary"><%=HttpContext.Current.Session["ConteoMovimientos"] ?? "0" %></span></h3>
+                                <h3>Lista de Servicios <span class="badge badge-secondary"><%=HttpContext.Current.Session["ConteoServicios"] ?? "0" %></span></h3>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Control de Movimientos Realizados</h5>
-                                <br />
                                 <asp:GridView runat="server" Visible="true" ID="GVMovimientos" AutoGenerateColumns="false" CssClass="table table-bordered" Width="100%">
                                     <HeaderStyle CssClass="thead-dark" />
                                     <RowStyle CssClass="table-light" />
@@ -83,9 +81,9 @@
                                         <asp:BoundField DataField="IdServicio" HeaderText="ID Servicio" />
                                         <asp:BoundField DataField="Servicio" HeaderText="Servicio" />
                                         <asp:BoundField DataField="EstaActivo" HeaderText="Esta Activo" />
-                                        <asp:BoundField DataField="UsuarioCreacion" HeaderText="Usuario de Creación" />
+                                        <asp:BoundField DataField="NumeroControlCreacion" HeaderText="Número de Control de Creación" />
                                         <asp:BoundField DataField="FechaCreacion" HeaderText="Fecha de Creación" />
-                                        <asp:BoundField DataField="UsuarioActualizacion" HeaderText="Usuario de Actualización" />
+                                        <asp:BoundField DataField="NumeroControlActualizacion" HeaderText="Número de Control de Actualización" />
                                         <asp:BoundField DataField="FechaActualizacion" HeaderText="Fecha de Actualización" />
                                     </Columns>
                                 </asp:GridView>
@@ -159,7 +157,7 @@
                 select: true,
                 ajax: {
                     type: "POST",
-                    url: "../Glossary.aspx/LlenarTablaAreas",
+                    url: "../Glossary.aspx/LlenarTablaServicios",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     cache: true,
@@ -168,7 +166,7 @@
                     },
                     dataSrc: "d.data"
                 },
-                rowId: 'IdArea',
+                rowId: 'IdServicio',
                 select: "single",
                 columns: [
                     {
@@ -190,21 +188,21 @@
                         class: "text-center"
                     },
                     {
+                        data: "NumeroControlCreacion",
+                        class: "text-center"
+                    },
+                    {
                         data: "FechaCreacion",
                         class: "text-center"
                     },
                     {
-                        data: "UsuarioCreacion",
+                        data: "NumeroControlActualizacion",
                         class: "text-center"
                     },
                     {
                         data: "FechaActualizacion",
                         class: "text-center"
-                    },
-                    {
-                        data: "UsuarioActualizacion",
-                        class: "text-center"
-                    },
+                    }
                 ]
             });
 

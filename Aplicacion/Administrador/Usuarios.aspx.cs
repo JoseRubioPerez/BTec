@@ -63,9 +63,46 @@ namespace Aplicacion.Administrador
         protected void LBGuardar_Click(object sender, EventArgs e)
         {
             TBNumeroControl.Text = TBNumeroControl.Text.Trim();
-            if (int.Parse(DDLArea.SelectedValue) > 0 && int.Parse(DDLGenero.SelectedValue) > 0 && int.Parse(DDLEstaActivo.SelectedValue) > 0 && !string.IsNullOrEmpty(TBNumeroControl.Text))
+            TBPaterno.Text = TBPaterno.Text.Trim();
+            TBNombres.Text = TBNombres.Text.Trim();
+            TBMaterno.Text = TBMaterno.Text.Trim();
+            if (string.IsNullOrEmpty(TBNumeroControl.Text))
             {
-
+                GenerarAlerta("¡Ingresa un valor!", Constantes.AlertaBootstrap.Danger, "El número de control no puede ir vacío.");
+                return;
+            }
+            if (string.IsNullOrEmpty(TBNombres.Text))
+            {
+                GenerarAlerta("¡Ingresa un valor!", Constantes.AlertaBootstrap.Danger, "El nombre no puede ir vacío.");
+                return;
+            }
+            if (string.IsNullOrEmpty(TBPaterno.Text))
+            {
+                GenerarAlerta("¡Ingresa un valor!", Constantes.AlertaBootstrap.Danger, "El apellido paterno no puede ir vacío.");
+                return;
+            }
+            if (!string.IsNullOrEmpty(TBMaterno.Text))
+            {
+                if (Validar.ContieneNumeros(TBMaterno.Text))
+                {
+                    GenerarAlerta("¡Ingresa un valor!", Constantes.AlertaBootstrap.Danger, "El apellido paterno no puede ir vacío.");
+                    return;
+                }
+            }
+            if (!byte.TryParse(DDLArea.SelectedValue, out byte IdArea))
+            {
+                GenerarAlerta("¡Sin área!", Constantes.AlertaBootstrap.Danger, "El área debe ser un valor válido.");
+                return;
+            }
+            if (!byte.TryParse(DDLGenero.SelectedValue, out byte IdGenero))
+            {
+                GenerarAlerta("¡Sin género!", Constantes.AlertaBootstrap.Danger, "El género debe ser un valor válido.");
+                return;
+            }
+            if (!bool.TryParse(DDLEstaActivo.SelectedValue, out bool EstaActivo))
+            {
+                GenerarAlerta("¡Sin estado del registro!", Constantes.AlertaBootstrap.Danger, "El estado del registro debe ser un valor válido.");
+                return;
             }
         }
         protected void LBConsultar_Click(object sender, EventArgs e)

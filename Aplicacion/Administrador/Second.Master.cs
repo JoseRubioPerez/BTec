@@ -42,6 +42,7 @@ namespace Aplicacion.Administrador
                 Page.Response.Redirect("~/LogIn.aspx", false);
                 return;
             }
+            Page.Response.Redirect("~/Administrador/Servicios.aspx", false);
         }
         protected void LBAreas_Click(object sender, EventArgs e)
         {
@@ -50,6 +51,7 @@ namespace Aplicacion.Administrador
                 Page.Response.Redirect("~/LogIn.aspx", false);
                 return;
             }
+            Page.Response.Redirect("~/Administrador/Areas.aspx", false);
         }
         protected void LBCerrarSession_Click(object sender, EventArgs e)
         {
@@ -70,7 +72,12 @@ namespace Aplicacion.Administrador
         }
         protected void LBAdministradores_Click(object sender, EventArgs e)
         {
-
+            if (HttpContext.Current.Session["Tarjeta"] == null)
+            {
+                Page.Response.Redirect("~/LogIn.aspx", false);
+                return;
+            }
+            Page.Response.Redirect("~/Administrador/Configuracion.aspx", false);
         }
     }
 }

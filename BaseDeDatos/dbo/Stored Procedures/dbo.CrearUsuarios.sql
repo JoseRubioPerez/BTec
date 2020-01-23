@@ -1,7 +1,3 @@
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_NULLS ON
-GO
 CREATE PROCEDURE [dbo].[CrearUsuarios] @IdUsuario AS INT OUTPUT
 , @IdGuid AS UNIQUEIDENTIFIER
 , @NumeroControl AS VARCHAR(9) = ''
@@ -14,8 +10,6 @@ CREATE PROCEDURE [dbo].[CrearUsuarios] @IdUsuario AS INT OUTPUT
 , @IdEstaActivo AS BIT = 0
 , @IdAdminCreacion AS TINYINT = 0
 , @FechaCreacion AS DATETIME = NULL
-, @IdAdminActualizacion AS TINYINT = 0
-, @FechaActualizacion AS DATETIME = NULL
 AS
 BEGIN
   IF @NumeroControl <> ''
@@ -23,9 +17,6 @@ BEGIN
     AND @Paterno <> ''
     AND @IdGenero <> 0
     AND @IdAdminCreacion <> 0
-    AND @IdAdminActualizacion <> 0
-    AND @FechaCreacion <> NULL
-    AND @FechaActualizacion <> NULL
   BEGIN
 
     SET @IdGuid = NEWID();
@@ -43,7 +34,7 @@ BEGIN
     FechaCreacion,
     IdAdminActualizacion,
     FechaActualizacion)
-      VALUES (@IdGuid, @NumeroControl, @Nombres, @Paterno, @Materno, @IdArea, @UrlFoto, @IdGenero, @IdEstaActivo, @IdAdminCreacion, @FechaCreacion, @IdAdminActualizacion, @FechaActualizacion)
+      VALUES (@IdGuid, @NumeroControl, @Nombres, @Paterno, @Materno, @IdArea, @UrlFoto, @IdGenero, @IdEstaActivo, @IdAdminCreacion, @FechaCreacion, @IdAdminCreacion, @FechaCreacion);
 
     SET @IdUsuario = @@IDENTITY;
   END

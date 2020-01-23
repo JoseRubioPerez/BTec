@@ -62,7 +62,17 @@
     <Folder Include="BaseDeDatos\" />
     <Folder Include="BaseDeDatos\" />
     <Folder Include="BaseDeDatos\" />
+    <Folder Include="BaseDeDatos\" />
+    <Folder Include="BaseDeDatos\" />
+    <Folder Include="BaseDeDatos\" />
+    <Folder Include="BaseDeDatos\" />
+    <Folder Include="BaseDeDatos\" />
     <Folder Include="dbo" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Stored Procedures\" />
@@ -73,10 +83,15 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="dbo\Stored Procedures\dbo.ActualizarAreas.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.ActualizarMovimientos.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.ActualizarServicios.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.ActualizarUsuarios.sql" />
     <Build Include="dbo\Stored Procedures\dbo.CrearAreas.sql" />
     <Build Include="dbo\Stored Procedures\dbo.CrearMovimientos.sql" />
     <Build Include="dbo\Stored Procedures\dbo.CrearServicios.sql" />
     <Build Include="dbo\Stored Procedures\dbo.CrearUsuarios.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.GraficaMovimientoPorGenero.sql" />
     <Build Include="dbo\Stored Procedures\dbo.GraficaMovimientos.sql" />
     <Build Include="dbo\Stored Procedures\dbo.IniciarSesion.sql" />
     <Build Include="dbo\Stored Procedures\dbo.LeerAdministradores.sql" />

@@ -39,16 +39,16 @@ namespace Negocio
                 {
                     case Constantes.TipoConsulta.Masiva:
                         {
-                            Tuple<object, string>[] T1 = Estructuras.GenerarTupla(Servicio1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados);
-                            using (Consultar ObjConsultar = new Consultar()) Tabla = ObjConsultar.Consultas(Constantes.Consulta.LeerMovimientos, T1);
+                            Tuple<object, string>[] T1 = Estructuras.GenerarTuplaLeerRegistros(Servicio1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados);
+                            using (Consultar ObjConsultar = new Consultar()) Tabla = ObjConsultar.Consultas(Constantes.Consulta.LeerServicios, T1);
                             Tarjeta1.TablaConsulta = Tabla;
                             break;
                         }
                     case Constantes.TipoConsulta.IndividualPorId:
                         {
                             if (Servicio1.IdServicio <= 0) throw new FormatException();
-                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Servicio1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados, nameof(Servicio1.IdServicio));
-                            using (Consultar ObjConsultar = new Consultar()) Resultado = ObjConsultar.Consultas(Constantes.Consulta.LeerMovimientos, T1);
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTuplaLeerRegistros(Servicio1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados, nameof(Servicio1.IdServicio));
+                            using (Consultar ObjConsultar = new Consultar()) Resultado = ObjConsultar.Consultas(Constantes.Consulta.LeerServicios, T1);
 
                             if (Resultado.Count > 0)
                             {
@@ -89,7 +89,7 @@ namespace Negocio
                 {
                     case Constantes.Accion.Insertar:
                         {
-                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Servicio1, nameof(Servicio1.IdServicio), nameof(Servicio1.IdGuid));
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTuplaGuardarRegistro(Servicio1, nameof(Servicio1.IdServicio), nameof(Servicio1.IdGuid), Tarjeta1.Accion);
                             using (Consultar ObjConsultas = new Consultar()) Resultado = ObjConsultas.Consultas(Constantes.Consulta.CrearServicios, T1);
                             if (Resultado.Count > 0)
                             {
@@ -113,7 +113,7 @@ namespace Negocio
                     case Constantes.Accion.Actualizar:
                         {
                             if (Servicio1.IdServicio <= 0) throw new FormatException();
-                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Servicio1, nameof(Servicio1.IdServicio), nameof(Servicio1.IdGuid));
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTuplaGuardarRegistro(Servicio1, nameof(Servicio1.IdServicio), nameof(Servicio1.IdGuid), Tarjeta1.Accion);
                             using (Consultar ObjConsultas = new Consultar()) Resultado = ObjConsultas.Consultas(Constantes.Consulta.ActualizarServicios, T1);
                             Tarjeta1.Resultado = Constantes.Resultado.Correcto;
                             break;

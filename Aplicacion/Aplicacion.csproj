@@ -129,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Administrador\Areas.aspx" />
-    <Content Include="Administrador\Configuracion.aspx" />
+    <Content Include="Administrador\Administradores.aspx" />
     <Content Include="Administrador\Movimientos.aspx" />
     <Content Include="Administrador\PanelGeneral.aspx" />
     <Content Include="Administrador\Servicios.aspx" />
@@ -219,12 +219,12 @@
     <Compile Include="Administrador\Areas.aspx.designer.cs">
       <DependentUpon>Areas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Administrador\Configuracion.aspx.cs">
-      <DependentUpon>Configuracion.aspx</DependentUpon>
+    <Compile Include="Administrador\Administradores.aspx.cs">
+      <DependentUpon>Administradores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Administrador\Configuracion.aspx.designer.cs">
-      <DependentUpon>Configuracion.aspx</DependentUpon>
+    <Compile Include="Administrador\Administradores.aspx.designer.cs">
+      <DependentUpon>Administradores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Administrador\Movimientos.aspx.cs">
       <DependentUpon>Movimientos.aspx</DependentUpon>

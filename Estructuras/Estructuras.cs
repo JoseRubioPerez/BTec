@@ -166,7 +166,7 @@ namespace Entidades
             private DateTime PDFechaActualizacion { get; set; }
             public DateTime FechaActualizacion { get { return PDFechaActualizacion; } set { PDFechaActualizacion = value == DateTime.MinValue ? new DateTime(1900, 01, 01) : value; } }
         }
-        public static Tuple<object, string>[] GenerarTupla(object Estructura, DateTime FechaInicio, DateTime FechaFin, Constantes.TipoConsulta Consulta1, bool BuscarTodosLosEstados = false)
+        public static Tuple<object, string>[] GenerarTuplaLeerRegistros(object Estructura, DateTime FechaInicio, DateTime FechaFin, Constantes.TipoConsulta Consulta1, bool BuscarTodosLosEstados = false)
         {
             PropertyInfo[] Propiedades = Estructura.GetType().GetProperties();
             Tuple<object, string>[] TuplaFinal = new Tuple<object, string>[Propiedades.Length + 4];
@@ -206,7 +206,7 @@ namespace Entidades
                 return null;
             }
         }
-        public static Tuple<object, string, bool>[] GenerarTupla(object Estructura, DateTime FechaInicio, DateTime FechaFin, Constantes.TipoConsulta Consulta1, bool BuscarTodosLosEstados, params string[] Omitir)
+        public static Tuple<object, string, bool>[] GenerarTuplaLeerRegistros(object Estructura, DateTime FechaInicio, DateTime FechaFin, Constantes.TipoConsulta Consulta1, bool BuscarTodosLosEstados, params string[] Omitir)
         {
             PropertyInfo[] Propiedades = Estructura.GetType().GetProperties();
             Tuple<object, string, bool>[] TuplaFinal = new Tuple<object, string, bool>[Propiedades.Length + 4];
@@ -246,41 +246,60 @@ namespace Entidades
                 return null;
             }
         }
-        public static Tuple<object, string, bool>[] GenerarTupla(object Estructura, string IdPrincipal, string IdGuid)
+        public static Tuple<object, string, bool>[] GenerarTuplaGuardarRegistro(object Estructura, string IdPrincipal, string IdGuid, Constantes.Accion Accion1)
         {
+            List<string> Excluir = new List<string> { nameof(Administradores.NumeroControlCreacion), nameof(Administradores.NumeroControlActualizacion) };
+
+            if (Accion1 == Constantes.Accion.Insertar)
+            {
+                Excluir.Add(nameof(Administradores.IdAdminActualizacion));
+                Excluir.Add(nameof(Administradores.FechaActualizacion));
+            }
+            else if (Accion1 == Constantes.Accion.Actualizar)
+            {
+                Excluir.Add(nameof(Administradores.IdAdminCreacion));
+                Excluir.Add(nameof(Administradores.FechaCreacion));
+            }
+
             PropertyInfo[] Propiedades = Estructura.GetType().GetProperties();
-
-            Tuple<object, string, bool>[] TuplaFinal = new Tuple<object, string, bool>[Propiedades.Length];
-
-            int Index = 0;
+            List<Tuple<object, string, bool>> TuplaFinal = new List<Tuple<object, string, bool>>();
 
             try
             {
                 foreach (PropertyInfo Propiedad in Propiedades)
                 {
-                    var Valor = Propiedad.GetValue(Estructura, null);
+                    if (!Excluir.Contains(Propiedad.Name))
+                    {
+                        var Valor = Propiedad.GetValue(Estructura, null);
 
-                    if (Valor == null)
-                    {
-                        Valor = string.Empty;
-                    }
-                    else if (Valor.GetType() == typeof(DateTime))
-                    {
-                        if ((DateTime)Valor == DateTime.Parse("01/01/0001"))
+                        if (Valor == null)
                         {
-                            Valor = DateTime.Parse("01/01/1900");
+                            Valor = string.Empty;
+                        }
+                        else if (Valor.GetType() == typeof(DateTime))
+                        {
+                            if ((DateTime)Valor == DateTime.Parse("01/01/0001"))
+                            {
+                                Valor = DateTime.Parse("01/01/1900");
+                            }
+                        }
+                        else if (Propiedad.PropertyType.FullName == "System.Char")
+                        {
+                            Valor = '\0';
+                        }
+
+                        if (Accion1 == Constantes.Accion.Insertar)
+                        {
+                            TuplaFinal.Add(new Tuple<object, string, bool>(Valor, Propiedad.Name, (Propiedad.Name == IdPrincipal || Propiedad.Name == IdGuid)));
+                        }
+                        else if (Accion1 == Constantes.Accion.Actualizar)
+                        {
+                            TuplaFinal.Add(new Tuple<object, string, bool>(Valor, Propiedad.Name, !(Propiedad.Name == IdPrincipal || Propiedad.Name == IdGuid)));
                         }
                     }
-                    else if (Propiedad.PropertyType.FullName == "System.Char")
-                    {
-                        Valor = '\0';
-                    }
-
-                    TuplaFinal[Index] = new Tuple<object, string, bool>(Valor, Propiedad.Name, !(Propiedad.Name == IdPrincipal || Propiedad.Name == IdGuid));
-                    Index++;
                 }
 
-                return TuplaFinal;
+                return TuplaFinal.ToArray();
             }
             catch (Exception)
             {

@@ -14,7 +14,15 @@ namespace Aplicacion.Administrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (HttpContext.Current.Session["Tarjeta"] == null)
+            {
+                Page.Response.Redirect("~/LogIn.aspx", false);
+                return;
+            }
+            if (!Page.IsPostBack)
+            {
+                MultiView1.SetActiveView(ViewNuevo);
+            }
         }
         private void GenerarAlerta(string TextoNegritas, Constantes.AlertaBootstrap AlertaBootstrap1, string Texto = "Revisa el campo, por favor.")
         {
@@ -61,7 +69,49 @@ namespace Aplicacion.Administrador
         }
         protected void LBGuardar_Click(object sender, EventArgs e)
         {
+            if (HttpContext.Current.Session["Tarjeta"] == null)
+            {
+                Page.Response.Redirect("~/LogIn.aspx", false);
+                return;
+            }
+            TBArea.Text = TBArea.Text.Trim();
+            if (string.IsNullOrEmpty(TBArea.Text))
+            {
+                GenerarAlerta("¡Ingresa un valor!", Constantes.AlertaBootstrap.Danger, "El area no puede ir vacía.");
+                return;
+            }
 
+            if (int.Parse(DDLEstaActivo.SelectedValue) < 0)
+            {
+                GenerarAlerta("¡Sin estado del registro!", Constantes.AlertaBootstrap.Danger, "El estado del registro debe ser un valor válido.");
+                return;
+            }
+
+            Estructuras.Tarjeta Tarjeta1 = (Estructuras.Tarjeta)HttpContext.Current.Session["Tarjeta"];
+            Tarjeta1.Accion = Constantes.Accion.Insertar;
+            DateTime Fecha = DateTime.Now;
+            Estructuras.Areas Area1 = new Estructuras.Areas
+            {
+                Area = TBArea.Text,
+                FechaCreacion = Fecha,
+                FechaActualizacion = Fecha,
+                IdEstaActivo = Convert.ToBoolean(int.Parse(DDLEstaActivo.SelectedValue)),
+                IdAdminCreacion = Tarjeta1.Administrador.IdAdministrador,
+                IdAdminActualizacion = Tarjeta1.Administrador.IdAdministrador
+            };
+            using (Negocio.Areas ObjAreas = new Negocio.Areas())
+            {
+                ObjAreas.GuardarArea(ref Tarjeta1, ref Area1);
+
+                if (Tarjeta1.Resultado == Constantes.Resultado.Correcto)
+                {
+                    GenerarAlerta("¡Guardado!", Constantes.AlertaBootstrap.Success, "El registro se guardo correctamente.");
+                }
+                else
+                {
+                    GenerarAlerta("¡Ocurrió un error!", Constantes.AlertaBootstrap.Danger, "El registro no se pudo guardar correctamente.");
+                }
+            }
         }
         protected void LBConsultar_Click(object sender, EventArgs e)
         {
@@ -72,25 +122,15 @@ namespace Aplicacion.Administrador
             }
             ActivarConsulta(true);
             MultiView1.SetActiveView(ViewConsultar);
-            if (HttpContext.Current.Session["TablaMovimientos"] == null)
-            {
-                /*Estructuras.Tarjeta Tarjeta1 = (Estructuras.Tarjeta)HttpContext.Current.Session["Tarjeta"];
-                Tarjeta1.TipoConsulta = Constantes.TipoConsulta.Masiva;
-                Estructuras.Movimientos Movimiento1 = new Estructuras.Movimientos { IdEstaActivo = true };
-                DateTime FechaInicio = DateTime.Parse("01/01/1900"), FechaFin = new DateTime(2099, 1, 1, 23, 59, 59);
-                using (Movimientos ObjMovimientos = new Movimientos()) ObjMovimientos.ConsultarCatalogoMovimientos(ref Tarjeta1, ref Movimiento1, FechaInicio, FechaFin, true, true);
-                HttpContext.Current.Session["TablaMovimientos"] = Tarjeta1.TablaConsulta;
-                HttpContext.Current.Session["ConteoMovimientos"] = Tarjeta1.TablaConsulta?.Rows.Count.ToString();
-                GVMovimientos.DataSource = Tarjeta1.TablaConsulta;
-                GVMovimientos.DataBind();*/
-            }
-            else
-            {
-                /*DataTable Tabla = (DataTable)HttpContext.Current.Session["TablaMovimientos"];
-                HttpContext.Current.Session["ConteoMovimientos"] = Tabla?.Rows.Count.ToString();
-                GVMovimientos.DataSource = Tabla;
-                GVMovimientos.DataBind();*/
-            }
+            Estructuras.Tarjeta Tarjeta1 = (Estructuras.Tarjeta)HttpContext.Current.Session["Tarjeta"];
+            Tarjeta1.TipoConsulta = Constantes.TipoConsulta.Masiva;
+            Estructuras.Areas Area1 = new Estructuras.Areas { IdEstaActivo = true };
+            DateTime FechaInicio = DateTime.Parse("01/01/1900"), FechaFin = new DateTime(2099, 1, 1, 23, 59, 59);
+            using (Negocio.Areas ObjAreas = new Negocio.Areas()) ObjAreas.ConsultarCatalogoAreas(ref Tarjeta1, ref Area1, FechaInicio, FechaFin, true, true);
+            HttpContext.Current.Session["TablaAreas"] = Tarjeta1.TablaConsulta;
+            HttpContext.Current.Session["ConteoAreas"] = Tarjeta1.TablaConsulta?.Rows.Count.ToString();
+            GVMovimientos.DataSource = Tarjeta1.TablaConsulta;
+            GVMovimientos.DataBind();
         }
         protected void LBVolver_Click(object sender, EventArgs e)
         {

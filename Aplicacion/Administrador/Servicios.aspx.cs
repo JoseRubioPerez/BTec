@@ -67,7 +67,50 @@ namespace Aplicacion.Administrador
         }
         protected void LBGuardar_Click(object sender, EventArgs e)
         {
+            if (HttpContext.Current.Session["Tarjeta"] == null)
+            {
+                Page.Response.Redirect("~/LogIn.aspx", false);
+                return;
+            }
 
+            TBServicio.Text = TBServicio.Text.Trim();
+            if (string.IsNullOrEmpty(TBServicio.Text))
+            {
+                GenerarAlerta("¡Ingresa un valor!", Constantes.AlertaBootstrap.Danger, "El servicio no puede ir vacía.");
+                return;
+            }
+
+            if (int.Parse(DDLEstaActivo.SelectedValue) < 0)
+            {
+                GenerarAlerta("¡Sin estado del registro!", Constantes.AlertaBootstrap.Danger, "El estado del registro debe ser un valor válido.");
+                return;
+            }
+
+            Estructuras.Tarjeta Tarjeta1 = (Estructuras.Tarjeta)HttpContext.Current.Session["Tarjeta"];
+            Tarjeta1.Accion = Constantes.Accion.Insertar;
+            DateTime Fecha = DateTime.Now;
+            Estructuras.Servicios Servicio1 = new Estructuras.Servicios
+            {
+                Servicio = TBServicio.Text,
+                FechaCreacion = Fecha,
+                FechaActualizacion = Fecha,
+                IdEstaActivo = Convert.ToBoolean(int.Parse(DDLEstaActivo.SelectedValue)),
+                IdAdminCreacion = Tarjeta1.Administrador.IdAdministrador,
+                IdAdminActualizacion = Tarjeta1.Administrador.IdAdministrador
+            };
+            using (Negocio.Servicios ObjServicios = new Negocio.Servicios())
+            {
+                ObjServicios.GuardarServicio(ref Tarjeta1, ref Servicio1);
+
+                if (Tarjeta1.Resultado == Constantes.Resultado.Correcto)
+                {
+                    GenerarAlerta("¡Guardado!", Constantes.AlertaBootstrap.Success, "El registro se guardo correctamente.");
+                }
+                else
+                {
+                    GenerarAlerta("¡Ocurrió un error!", Constantes.AlertaBootstrap.Danger, "El registro no se pudo guardar correctamente.");
+                }
+            }
         }
         protected void LBConsultar_Click(object sender, EventArgs e)
         {
@@ -78,25 +121,15 @@ namespace Aplicacion.Administrador
             }
             ActivarConsulta(true);
             MultiView1.SetActiveView(ViewConsultar);
-            if (HttpContext.Current.Session["TablaMovimientos"] == null)
-            {
-                /*Estructuras.Tarjeta Tarjeta1 = (Estructuras.Tarjeta)HttpContext.Current.Session["Tarjeta"];
-                Tarjeta1.TipoConsulta = Constantes.TipoConsulta.Masiva;
-                Estructuras.Movimientos Movimiento1 = new Estructuras.Movimientos { IdEstaActivo = true };
-                DateTime FechaInicio = DateTime.Parse("01/01/1900"), FechaFin = new DateTime(2099, 1, 1, 23, 59, 59);
-                using (Movimientos ObjMovimientos = new Movimientos()) ObjMovimientos.ConsultarCatalogoMovimientos(ref Tarjeta1, ref Movimiento1, FechaInicio, FechaFin, true, true);
-                HttpContext.Current.Session["TablaMovimientos"] = Tarjeta1.TablaConsulta;
-                HttpContext.Current.Session["ConteoMovimientos"] = Tarjeta1.TablaConsulta?.Rows.Count.ToString();
-                GVMovimientos.DataSource = Tarjeta1.TablaConsulta;
-                GVMovimientos.DataBind();*/
-            }
-            else
-            {
-                /*DataTable Tabla = (DataTable)HttpContext.Current.Session["TablaMovimientos"];
-                HttpContext.Current.Session["ConteoMovimientos"] = Tabla?.Rows.Count.ToString();
-                GVMovimientos.DataSource = Tabla;
-                GVMovimientos.DataBind();*/
-            }
+            Estructuras.Tarjeta Tarjeta1 = (Estructuras.Tarjeta)HttpContext.Current.Session["Tarjeta"];
+            Tarjeta1.TipoConsulta = Constantes.TipoConsulta.Masiva;
+            Estructuras.Servicios Movimiento1 = new Estructuras.Servicios { IdEstaActivo = true };
+            DateTime FechaInicio = DateTime.Parse("01/01/1900"), FechaFin = new DateTime(2099, 1, 1, 23, 59, 59);
+            using (Negocio.Servicios ObjServicios = new Negocio.Servicios()) ObjServicios.ConsultarCatalogoServicios(ref Tarjeta1, ref Movimiento1, FechaInicio, FechaFin, true, true);
+            HttpContext.Current.Session["TablaServicios"] = Tarjeta1.TablaConsulta;
+            HttpContext.Current.Session["ConteoServicios"] = Tarjeta1.TablaConsulta?.Rows.Count.ToString();
+            GVMovimientos.DataSource = Tarjeta1.TablaConsulta;
+            GVMovimientos.DataBind();
         }
         protected void LBVolver_Click(object sender, EventArgs e)
         {

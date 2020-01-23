@@ -46,7 +46,7 @@ namespace Negocio
                 {
                     case Constantes.TipoConsulta.Masiva:
                         {
-                            Tuple<object, string>[] T1 = Estructuras.GenerarTupla(Movimiento1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados);
+                            Tuple<object, string>[] T1 = Estructuras.GenerarTuplaLeerRegistros(Movimiento1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados);
                             using (Consultar ObjConsultar = new Consultar()) Tabla = ObjConsultar.Consultas(Constantes.Consulta.LeerMovimientos, T1);
                             Tarjeta1.TablaConsulta = Tabla;
                             break;
@@ -54,7 +54,7 @@ namespace Negocio
                     case Constantes.TipoConsulta.IndividualPorId:
                         {
                             if (Movimiento1.IdMovimiento <= 0) throw new FormatException();
-                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Movimiento1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados, nameof(Movimiento1.IdMovimiento));
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTuplaLeerRegistros(Movimiento1, FechaInicio, FechaFin, Tarjeta1.TipoConsulta, BuscarTodosLosEstados, nameof(Movimiento1.IdMovimiento));
                             using (Consultar ObjConsultar = new Consultar()) Resultado = ObjConsultar.Consultas(Constantes.Consulta.LeerMovimientos, T1);
 
                             if (Resultado.Count > 0)
@@ -96,7 +96,7 @@ namespace Negocio
                 {
                     case Constantes.Accion.Insertar:
                         {
-                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Movimiento1, nameof(Movimiento1.IdMovimiento), nameof(Movimiento1.IdGuid));
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTuplaGuardarRegistro(Movimiento1, nameof(Movimiento1.IdMovimiento), nameof(Movimiento1.IdGuid), Tarjeta1.Accion);
                             using (Consultar ObjConsultas = new Consultar()) Resultado = ObjConsultas.Consultas(Constantes.Consulta.CrearMovimientos, T1);
                             if (Resultado.Count > 0)
                             {
@@ -120,7 +120,7 @@ namespace Negocio
                     case Constantes.Accion.Actualizar:
                         {
                             if (Movimiento1.IdMovimiento <= 0) throw new FormatException();
-                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTupla(Movimiento1, nameof(Movimiento1.IdMovimiento), nameof(Movimiento1.IdGuid));
+                            Tuple<object, string, bool>[] T1 = Estructuras.GenerarTuplaGuardarRegistro(Movimiento1, nameof(Movimiento1.IdMovimiento), nameof(Movimiento1.IdGuid), Tarjeta1.Accion);
                             using (Consultar ObjConsultas = new Consultar()) Resultado = ObjConsultas.Consultas(Constantes.Consulta.ActualizarMovimientos, T1);
                             Tarjeta1.Resultado = Constantes.Resultado.Correcto;
                             break;
